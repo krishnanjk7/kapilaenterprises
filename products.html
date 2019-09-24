@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Kapila Enterprises</title>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="bootstrap.min.css">
+  <link rel="stylesheet" href="style.css">
+  <style type="text/css">
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+    }
+
+    body {
+      background-color: #ffffff;
+    }
+
+    #products {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .product {
+      background-color: #00000000;
+      border: 1px solid #dedede;
+      border-radius: 5px;
+      flex: 0 0 30%;
+      align-self: stretch;
+      margin: 10px 0px;
+      padding: 10px 15px;
+      min-width: 350px;
+    }
+
+    .product img {
+      width: 100%;
+      height: 300px;
+    }
+
+    .product span {
+      font-size: 25px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container-fluid">
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="#">Kapila Enterprises</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
+        aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Services</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Contact Us</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div id="products">
+      <div class="product">
+        <img src="assets/products/self_drilling.jpg" alt="">
+        <span>Self Drilling Screws</span>
+        <p></p>
+      </div>
+      <div class="product">
+        <img src="assets/products/cement_drilling_screw.jpg" alt="">
+        <span>Cement Sheet Drilling Screws</span>
+        <p></p>
+      </div>
+      <div class="product">
+        <img src="assets/products/turbo_vendilator.jpg" alt="">
+        <span>Turbo Vendilator Fan</span>
+        <p></p>
+
+      </div>
+      <div class="product">
+        <img src="assets/products/aluminium_foil.jpg" alt="">
+        <span>Aluminiam Foil Insulation</span>
+        <p></p>
+      </div>
+      <div class="product">
+          <img src="assets/products/cement_drilling_screw.jpg" alt="">
+          <span> Polynium Roll (Roof Insulation/Heat Insulation)</span>
+          <p></p>
+      </div>
+      <div class="product">
+          <img src="assets/products/poly_corponate.jpg" alt="">
+          <span>PolyCorbonate Sheet</span>
+          <p></p>
+      </div>
+      <div class="product">
+          <img src="assets/products/multiwall.png" alt="">
+          <span>MultiWall</span>
+          <p></p>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
