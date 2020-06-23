@@ -1,0 +1,5 @@
+@import 'src/styles/fonts.scss';
+
+::ng-deep .caption{
+    @extend .muli-semi-bold;
+}

@@ -1,0 +1,27 @@
+@import "src/styles/fonts.scss";
+.nav-link{
+    @extend .exo2-medium;
+}
+.bg-dark{
+    // background-color: #0074b2 !important
+    background-color: #000000 !important
+}
+.navbar{
+    height: 70px !important;
+}
+.navbar-brand{
+    font-size: 25px !important;
+    color: yellow !important;
+}
+.navbar-nav .nav-link{
+    color: yellow;
+}
+.active .nav-link{
+    color: #ffffff;
+}
+.navbar-nav .nav-item{
+    transition: border 250ms linear;
+}
+.navbar-nav .active{
+    border-bottom: 2px solid #ffff;
+}

@@ -1,0 +1,14 @@
+@import 'src/styles/fonts';
+
+.key{
+    @extend .muli-bold;
+    margin-bottom: 8px;
+}
+.value{
+    @extend .muli-regular;
+    margin-bottom: 5px;
+}
+ul{
+    list-style-type: circle;
+    padding-left: 15px;
+}
