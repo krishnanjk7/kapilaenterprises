@@ -1,23 +1,20 @@
+<!-- <div class="title-container"> -->
+    <h2 class="muli-bold mb-3 ke-title">Contact Us</h2>
+<!-- </div> -->
 <div class="row">
-    <!-- <p class="exo2-regular text-left">
-        Get in touch and we’ll get back to you as soon as we can.
-        We look forward to hearing from you!
-    </p> -->
-    <div class="col-12 text-center">
-        <img src="assets/img/contact-us.png" alt="" width="60%">
-    </div>
-    <div class="col-12">
-        <div class="d-flex flex-row justify-content-between">
+    
+    <div class="col-lg-6 col-md-6 col-sm-12">
+        <div class="d-flex flex-column justify-content-between">
             
             <div class="d-flex flex-column mt-4">
-                <span class="key"><i class="fa fa-mobile" aria-hidden="true"></i> Mobile </span>
+                <span class="key"> Mobile </span>
                 <ul>
                     <li class="value">+91 95665 55504</li>
                     <li class="value">+91 90039 96050</li>
                 </ul>
             </div>
             <div class="d-flex flex-column mt-4">
-                <span class="key"><i class="fa fa-envelope" aria-hidden="true"></i> Email </span>
+                <span class="key">Email </span>
                 <ul>
                     <li class="value">kapilaenterprises4@gmail.com</li>
                     <li class="value">kapilaenterprises@outlook.com</li>
@@ -25,7 +22,7 @@
             </div>
 
             <div class="d-flex flex-column mt-4">
-                <span class="key"><i class="fa fa-address-card" aria-hidden="true"></i> Address</span>
+                <span class="key">Address</span>
                 <ul style="list-style-type: none;">
                     <li class="value">5/144, Avinashi ByPass,</li>
                     <li class="value">Near by Tirupur Junction,</li>
@@ -35,4 +32,48 @@
         </div>
     </div>
 
+    <div class="col-lg-6 col-md-6 col-sm-12">
+        <p class="exo2-regular text-left">
+            Get in touch and we’ll get back to you as soon as we can.
+            We look forward to hearing from you!
+        </p>
+            <form [formGroup]="contactForm">
+                <div class="form-group">
+                    <label for="name" >Name *</label>
+                    <input type="text" class="form-control" id="name" formControlName="name">
+                    <div *ngIf="hasError('name')">
+                        <p class="error" *ngIf="showError('name','required')">Name is required</p>
+                        <p class="error" *ngIf="showError('name','pattern')">Name should be 3-25 letters</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="email" >Email *</label>
+                    <input type="text" class="form-control" formControlName="email">
+                    <div *ngIf="hasError('email')">
+                        <p class="error" *ngIf="showError('email','required')">Email is required</p>
+                        <p class="error" *ngIf="showError('email','pattern')">Enter valid email</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="subject" >Subject *</label>
+                    <input type="text" class="form-control" formControlName="subject">
+                    <div *ngIf="hasError('subject')">
+                        <p class="error" *ngIf="showError('subject','required')">Subject is required</p>
+                        <p class="error" *ngIf="showError('subject','pattern')">Subject should be 3-20 characters</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="message" >Message *</label>
+                    <textarea class="form-control" formControlName="message" rows="5"> </textarea>
+                    <div *ngIf="hasError('message')">
+                        <p class="error" *ngIf="showError('message','required')">Message is required</p>
+                        <p class="error" *ngIf="showError('message','minlength')">Message should consist at least 10 characters </p>
+                        <p class="error" *ngIf="showError('message','maxlength')">Only 300 characters allowed </p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-primary" type="button" [disabled]="!contactForm.valid">Submit</button>
+                </div>
+            </form>
+    </div>
 </div>

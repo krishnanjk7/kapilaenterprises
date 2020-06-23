@@ -10,7 +10,6 @@
     height: 70px !important;
 }
 .navbar-brand{
-    font-size: 25px !important;
     color: yellow !important;
 }
 .navbar-nav .nav-link{
@@ -24,4 +23,9 @@
 }
 .navbar-nav .active{
     border-bottom: 2px solid #ffff;
+}
+#navbarNav{
+    z-index: 10;
+    background-color: black;
+    padding: 10px 12px;
 }

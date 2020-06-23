@@ -10,6 +10,7 @@ export class HomeComponent implements OnInit {
 
   @ViewChild('nav') slider: NgImageSliderComponent;
   imageSize = { width: '400px', height: '300px', space: 4 };
+  slideImage = 1;
   animationSpeed = 4;
   autoSlide = 1;
   slideInfinite = true;
@@ -62,6 +63,9 @@ export class HomeComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    if (window.innerWidth < 400) {
+      this.imageSize.width = window.innerWidth + 'px';
+    }
   }
 
   prevImageClick() {

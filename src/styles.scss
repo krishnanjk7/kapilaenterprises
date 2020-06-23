@@ -1,1 +1,28 @@
 @import './styles/fonts.scss';
+
+
+.ke-title {
+    position: relative;
+    display: inline-block;
+
+    &::after {
+        content: "";
+        width: 86%;
+        height: 2px;
+        position: absolute;
+        left: 24px;
+        bottom: 0px;
+        background-color: black;
+    }
+}
+.error{
+    color:red;
+    @extend .exo2-regular;
+    font-size: 14px;
+}
+label{
+    @extend .exo2-regular;
+}
+input,textarea{
+    @extend .exo2-medium;
+}
