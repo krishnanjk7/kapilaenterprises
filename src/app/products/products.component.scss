@@ -1,0 +1,32 @@
+@import 'src/styles/fonts';
+.products{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin: 25px 0px;
+    box-shadow: 1px 0px 10px 0px black;
+    transition: all 250ms ease-in;
+    padding: 10px 5px;
+    &:hover{
+        box-shadow: 1px 0px 25px 3px black;
+    }
+    .product-image{
+        img{
+            width: 100%;
+        }
+    }
+    .product-description{
+        display: flex;
+        flex-direction: column;
+        .prod-title{
+            @extend .exo2-semi-bold;
+            font-size: 23px;
+        }
+        p{
+            @extend .exo2-regular;
+            font-size: 16px;
+        }
+    }
+}
