@@ -26,3 +26,18 @@ label{
 input,textarea{
     @extend .exo2-medium;
 }
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+.list-table{
+    @extend .muli-medium;
+}
+
+.list-title{
+    @extend .exo2-bold;
+    margin: 25px 0px !important;
+    button{
+        float: right;
+    }
+}

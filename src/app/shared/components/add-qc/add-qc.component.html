@@ -1,0 +1,116 @@
+<h2 mat-dialog-title> {{matData.update== true? 'Update Qc': 'New Qc' }}</h2>
+<mat-dialog-content>
+
+    <form [formGroup]="addInvoiceForm">
+        <div class="example-container">
+            <div class="row">
+                <mat-form-field class="col-7">
+                    <mat-label>Client Name</mat-label>
+                    <mat-select formControlName="client_id" required>
+                        <mat-option *ngFor="let s of clientList" [value]="s.id">{{s.name}}</mat-option>
+                    </mat-select>
+
+                </mat-form-field>
+                <div class="col-1">
+                    <button mat-icon-button color="accent" id="add-client" (click)="addClient()">
+                        <mat-icon color="primary">add_circle</mat-icon>
+                    </button>
+                </div>
+                <mat-form-field class="col-4">
+                    <mat-label>Qc Date</mat-label>
+                    <input matInput type="date" formControlName="qc_date" required>
+                </mat-form-field>
+                <mat-form-field class="col-9">
+                    <mat-label>Delivery Notes</mat-label>
+                    <textarea matInput formControlName="remarks"></textarea>
+                </mat-form-field>
+            </div>
+            <form [formGroup]="addProductForm">
+                <div class="example-container">
+                    <div class="row">
+                        <mat-form-field class="col-3">
+                            <mat-label>Product</mat-label>
+                            <mat-select #prodlist formControlName="prod_id" required (selectionChange)="prodChange($event)">
+                                <mat-option *ngFor="let s of productList" [value]="s.id">{{s.name}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <div class="col-1">
+                            <button mat-icon-button color="accent" id="add-product" (click)="addProduct()">
+                                <mat-icon color="primary">add_circle</mat-icon>
+                            </button>
+                        </div>
+                        <mat-form-field class="col-2">
+                            <mat-label>Mou</mat-label>
+                            <mat-select #moulist formControlName="prod_mou" required (selectionChange)="mouChange($event)">
+                                <mat-option *ngFor="let s of mouList" [value]="s.id">{{s.name}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <mat-form-field class="col-2">
+                            <mat-label>Qty</mat-label>
+                            <input matInput formControlName="prod_qty" required>
+                        </mat-form-field>
+                        <mat-form-field class="col-2">
+                            <mat-label>Rate</mat-label>
+                            <input matInput formControlName="prod_rate" required>
+                        </mat-form-field>
+                        <mat-form-field class="col-2">
+                            <mat-label>Final Total</mat-label>
+                            <input matInput formControlName="prod_finaltotal" required readonly>
+                        </mat-form-field>
+
+                        <button mat-raised-button color="primary" (click)="addProd()"
+                            [disabled]="!addProductForm.valid">Add</button>
+                    </div>
+                </div>
+            </form>
+
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>S.No</th>
+                        <th>Item</th>
+                        <th>Mou</th>
+                        <th>Qty</th>
+                        <th>Rate</th>
+                        <th>Final Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let p of addedProducts;let i=index">
+                        <td>{{i+1}}</td>
+                        <td>{{p.prod_name}}</td>
+                        <td>{{p.prod_mou_name}}</td>
+                        <td>{{p.prod_qty}}</td>
+                        <td>{{p.prod_rate}}</td>
+                        <td>
+                            {{p.prod_finaltotal}}
+                            <button mat-icon-button color="warn" (click)="deleteRow(i)">
+                                <mat-icon color="primary">delete</mat-icon>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th colspan="5"></th>
+                        <th>{{ prodFinaltotal }}</th>
+                    </tr>
+                    <tr>
+                        <th colspan="5">Round Off (-/+)</th>
+                        <th>{{roundOff}}</th>
+                    </tr>
+                    <tr>
+                        <th colspan="5">Grand Total</th>
+                        <th>{{grandTotal}}</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button *ngIf="!matData.update" mat-raised-button color="primary" (click)="addQc()"
+        [disabled]="!addInvoiceForm.valid">Submit</button>
+     <button *ngIf="matData.update" mat-raised-button color="primary" (click)="updateQc()" [disabled]="!addInvoiceForm.valid">Submit</button>
+    <button mat-raised-button color="warn" mat-dialog-close>Cancel</button>
+</mat-dialog-actions>

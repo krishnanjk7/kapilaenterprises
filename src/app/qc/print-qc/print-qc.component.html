@@ -1,0 +1,149 @@
+<button mat-raised-button color="primary" (click)="printPage()">Print</button>
+<div #invoiceTable id="invoice-container">
+    <h2 class="muli-bold text-center m-0">
+        Quotation
+    </h2>
+    <table class="table" *ngIf="showInvoice">
+        <tbody>
+            <tr class="muli-semi-bold">
+                <td colspan="5" style="border: 1px solid black;border-bottom:none;">
+                    <div style="position: relative;">
+                        <div id="logo-container">
+                            <img src="assets/img/ke-logo.png" alt="" style="width: 100%;">
+                        </div>
+                        <div style="margin-left: 60px;">
+                            <h2 class="exo2-bold m-0">KAPILA ENTERPRISES</h2>
+                            <p style="font-size: 16px;" class="m-0">
+                                No. 1/15, Nallakatti palayam,
+                                Thulukkamuthur, Avinashi,
+                                Tirupur - 641 654<br />
+                                GSTIN/UIN : 33DGNPP0949B1ZF, <br />
+                                Email : kapilaenterprises4@gmail.com <br />
+                                Mobile: 900 399 6050, 9566 5555 04 <br/>
+                                Website: kapilaenterprises.in
+                            </p>
+                        </div>
+                    </div>
+                </td>
+                <td colspan="3" style="font: 16px;border-top: 1px solid black;border-right: 1px solid black;">
+                    Qc No: KE/{{invoice.qc_year}}/{{invoice.qc_no}} <br />
+                    Qc Date: {{invoice.qc_date | date : 'dd-MM-yyyy'}}
+                </td>
+            </tr>
+            <tr>
+                <td colspan="8" class="p-0" style="height: 190px;">
+                    <table class="table w-100 exo2-medium" id="buyer-table">
+                        <tr style="font-size: 16px;">
+                            <td colspan="4" style="border-top: 1px solid black;border-left: 1px solid black;">
+                                Consignee, <br /> <br />
+                                <bdi class="exo2-bold">{{invoice.client_name}} </bdi><br />
+                                <div *ngIf="consigneeAdd">
+                                    {{consigneeAdd.address}}, <br />
+                                    {{consigneeAdd.city}}, {{consigneeAdd.district}}, <br />
+                                    {{consigneeAdd.state}} - {{consigneeAdd.pincode}}<br />
+                                    GSTIN/UIN : {{consigneeAdd.gstin}} <br />
+                                    Mobile: {{consigneeAdd.mobile}}
+                                </div>
+                            </td>
+                            <td colspan="4"
+                                style="border-top: 1px solid black;border-left: 1px solid black;border-right: 1px solid black;">
+                                 Notes <br /> <br />
+                                {{invoice.remarks}}
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr id="prod-head" class="text-center muli-bold">
+                <td style="width: 57px;">S.No</td>
+                <td>Item</td>
+                <td style="width: 90px;">HSN</td>
+                <td style="width: 60px;">Per</td>
+                <td style="width: 110px;">Qty</td>
+                <td style="width: 110px;">Rate</td>
+                <!-- <td style="width: 60px;">Tax</td> -->
+                <td class="text-right" style="width: 150px;" colspan="2">Total</td>
+            </tr>
+            <tr *ngFor="let p of invoiceGroup;let i = index" class="prod-row muli-semi-bold">
+                <td>{{i+1}}</td>
+                <td>
+                    {{p.name}}<br />
+                    {{p.descp}}
+                </td>
+                <td class="text-center">{{p.hsn}}</td>
+                <td class="text-center">{{p.mou_name}}</td>
+                <td class="text-right">{{p.qty| number : '1.2-2'}}</td>
+                <td class="text-right">{{p.rate | number : '1.2-2'}}</td>
+                <td class="text-right" colspan="2">{{p.final_total | number : '1.2-2' }}</td>
+            </tr>
+            <tr class="prod-row muli-regular" id="last-prod-row" >
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td colspan="2"></td>
+            </tr>
+        </tbody>
+        <tfoot style="font-size: 16px;">
+            <tr class="text-right muli-bold ">
+                <td colspan="4" rowspan="2" style="height: 160px;">
+                    <p class="text-left"> Bank Details,</p>
+
+                    <table class="table text-left" id="bank-details">
+                        <tr>
+                            <td>Bank Name</td>
+                            <td>: Tamilnad Mercantile Bank</td>
+                        </tr>
+                        <tr>
+                            <td>Account Number</td>
+                            <td>: 245150050800356</td>
+                        </tr>
+                        <tr>
+                            <td>Branch</td>
+                            <td>: Avinashi</td>
+                        </tr>
+                        <tr>
+                            <td>IFSC</td>
+                            <td>: TMBL0000245</td>
+                        </tr>
+                    </table>
+                    <p class="text-left muli-medium m-0" style="font-size: 13px;">
+                        <span style="text-decoration:underline">Declaration:</span> <br />
+                        We declare that this quotation shows tha actual price of the goods described and that all
+                        particulars are true and correct
+                    </p>
+                </td>
+                <td colspan="3">Sub Total</td>
+                <td>{{invoice.sub_total|number:'1.2-2'}}</td>
+            </tr>
+            <tr class="text-right muli-bold">
+                <td colspan="3">Round Off (+/-)</td>
+                <td>{{invoice.round_off|number:'1.2-2'}}</td>
+            </tr>
+            <tr class="text-right muli-bold">
+                <td colspan="4" style="border-top: none;" class="text-left">
+                    Amount in words (Rupees):<br/>
+                    {{ convertNumberToWords(invoice.grand_total) }} Only
+                </td>
+                <td colspan="3">Grand Total</td>
+                <td>{{invoice.grand_total|number:'1.2-2'}}</td>
+            </tr>
+            <tr class="muli-semi-bold text-center">
+                <td style="border-bottom:none;border-top:1px solid black" colspan="2"></td>
+                <td style="border-bottom: none;border-top:1px solid black" colspan="6">
+                    For Kapila Enterprises,
+                </td>
+            </tr>
+            <tr class="muli-semi-bold">
+                <td style="border-bottom: none;border-top: none;" colspan="2"></td>
+                <td style="border-bottom: none;border-top: none;" colspan="6"></td>
+            </tr>
+            <tr class="muli-semi-bold text-center">
+                <td style="border-top: none;border-bottom:1px solid black" colspan="2">Customer's seal & signature</td>
+                <td style="border-top:none;border-bottom:1px solid black" colspan="6">Authorized By</td>
+            </tr>
+        </tfoot>
+    </table>
+</div>

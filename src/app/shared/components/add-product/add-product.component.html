@@ -1,0 +1,42 @@
+
+<h2 mat-dialog-title> {{matData.update== true? 'Update Product': 'New Product' }}</h2>
+<mat-dialog-content>
+
+    <form [formGroup]="addProductForm">
+        <div class="example-container">
+            <div class="row">
+                <mat-form-field class="col-8">
+                    <mat-label>Name</mat-label>
+                    <input matInput formControlName="name" required>
+                </mat-form-field>
+                <mat-form-field class="col-4">
+                    <mat-label>Hsn</mat-label>
+                    <input matInput formControlName="hsn" required>
+                </mat-form-field>
+            </div>
+            <div class="row">
+                <mat-form-field class="col-3">
+                    <mat-label>Tax</mat-label>
+                    <mat-select formControlName="tax_id" required>
+                        <mat-option *ngFor="let s of taxList" [value]="s.id">{{s.name}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field class="col-3">
+                    <mat-label>Mou</mat-label>
+                    <mat-select formControlName="mou_id" required>
+                        <mat-option *ngFor="let s of mouList" [value]="s.id">{{s.name}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field class="col-6">
+                    <mat-label>Description</mat-label>
+                    <textarea matInput formControlName="description" ></textarea>
+                </mat-form-field>
+            </div>
+        </div>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button *ngIf="!matData.update" mat-raised-button color="primary" (click)="addProduct()" [disabled]="!addProductForm.valid">Submit</button>
+    <button *ngIf="matData.update" mat-raised-button color="primary" (click)="updateProduct()" [disabled]="!addProductForm.valid">Submit</button>
+    <button mat-raised-button color="warn" mat-dialog-close>Cancel</button>
+</mat-dialog-actions>

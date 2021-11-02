@@ -1,0 +1,170 @@
+<h2 mat-dialog-title> {{matData.update== true? 'Update Invoice': 'New Invoice' }}</h2>
+<mat-dialog-content>
+
+    <form [formGroup]="addInvoiceForm">
+        <div class="example-container">
+            <div class="row">
+                <mat-form-field class="col-7">
+                    <mat-label>Client Name</mat-label>
+                    <mat-select formControlName="client_id" required>
+                        <mat-option *ngFor="let s of clientList" [value]="s.id">{{s.name}}</mat-option>
+                    </mat-select>
+
+                </mat-form-field>
+                <div class="col-1">
+                    <button mat-icon-button color="accent" id="add-client" (click)="addClient()">
+                        <mat-icon color="primary">add_circle</mat-icon>
+                    </button>
+                </div>
+                <mat-form-field class="col-4">
+                    <mat-label>Invoice Date</mat-label>
+                    <input matInput type="date" formControlName="invoice_date" required>
+                </mat-form-field>
+                <mat-form-field class="col-9">
+                    <mat-label>Delivery Notes</mat-label>
+                    <textarea matInput formControlName="remarks"></textarea>
+                </mat-form-field>
+                <mat-form-field class="col-3">
+                    <mat-label>Ship To Same Address</mat-label>
+                    <mat-select formControlName="ship_to_same" required #shiptosame (selectionChange)="shipToChange($event)">
+                        <mat-option value="1">Yes</mat-option>
+                        <mat-option value="0">Other</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="row" *ngIf="shiptosame.value==0">
+                <mat-form-field class="col-3">
+                    <mat-label>State</mat-label>
+                    <mat-select formControlName="state" (selectionChange)="sortDistrict()" required>
+                        <mat-option *ngFor="let s of stateList" [value]="s.id">{{s.state}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field class="col-3">
+                    <mat-label>District</mat-label>
+                    <mat-select formControlName="district" required>
+                        <mat-option *ngFor="let s of filterDistrict" [value]="s.id">{{s.name}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field class="col-3">
+                    <mat-label>City</mat-label>
+                    <input matInput formControlName="city">
+                </mat-form-field>
+                <mat-form-field class="col-3">
+                    <mat-label>Pin code</mat-label>
+                    <input matInput formControlName="pincode" required>
+                </mat-form-field>
+                <mat-form-field class="col-6">
+                    <mat-label>Address</mat-label>
+                    <textarea matInput formControlName="address" required></textarea>
+                </mat-form-field>
+            </div>
+            <form [formGroup]="addProductForm">
+                <div class="example-container">
+                    <div class="row">
+                        <mat-form-field class="col-3">
+                            <mat-label>Product</mat-label>
+                            <mat-select #prodlist formControlName="prod_id" required (selectionChange)="prodChange($event)">
+                                <mat-option *ngFor="let s of productList" [value]="s.id">{{s.name}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <div class="col-1">
+                            <button mat-icon-button color="accent" id="add-product" (click)="addProduct()">
+                                <mat-icon color="primary">add_circle</mat-icon>
+                            </button>
+                        </div>
+                        <mat-form-field class="col-2">
+                            <mat-label>Mou</mat-label>
+                            <mat-select #moulist formControlName="prod_mou" required (selectionChange)="mouChange($event)">
+                                <mat-option *ngFor="let s of mouList" [value]="s.id">{{s.name}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <mat-form-field class="col-2">
+                            <mat-label>Qty</mat-label>
+                            <input matInput formControlName="prod_qty" required>
+                        </mat-form-field>
+                        <mat-form-field class="col-2">
+                            <mat-label>Rate</mat-label>
+                            <input matInput formControlName="prod_rate" required>
+                        </mat-form-field>
+                        <mat-form-field class="col-2">
+                            <mat-label>Sub Total 1</mat-label>
+                            <input matInput formControlName="prod_subtotal1" required readonly>
+                        </mat-form-field>
+                        <mat-form-field class="col-2">
+                            <mat-label>Tax</mat-label>
+                            <mat-select #taxlist formControlName="prod_tax">
+                                <mat-option value="">No Tax</mat-option>
+                                <mat-option *ngFor="let t of taxList" [value]="t.id">{{t.name}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <mat-form-field class="col-2">
+                            <mat-label>Tax Total</mat-label>
+                            <input matInput formControlName="prod_taxtotal" required readonly>
+                        </mat-form-field>
+                        <mat-form-field class="col-2">
+                            <mat-label>Final Total</mat-label>
+                            <input matInput formControlName="prod_finaltotal" required readonly>
+                        </mat-form-field>
+
+                        <button mat-raised-button color="primary" (click)="addProd()"
+                            [disabled]="!addProductForm.valid">Add</button>
+                    </div>
+                </div>
+            </form>
+
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>S.No</th>
+                        <th>Item</th>
+                        <th>Mou</th>
+                        <th>Qty</th>
+                        <th>Rate</th>
+                        <th>Sub Total</th>
+                        <th>Tax</th>
+                        <th>Final Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let p of addedProducts;let i=index">
+                        <td>{{i+1}}</td>
+                        <td>{{p.prod_name}}</td>
+                        <td>{{p.prod_mou_name}}</td>
+                        <td>{{p.prod_qty}}</td>
+                        <td>{{p.prod_rate}}</td>
+                        <td>{{p.prod_subtotal1}}</td>
+                        <td>{{p.prod_taxtotal}}</td>
+                        <td>
+                            {{p.prod_finaltotal}}
+                            <button mat-icon-button color="warn" (click)="deleteRow(i)">
+                                <mat-icon color="primary">delete</mat-icon>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th colspan="5"></th>
+                        <th>{{ prodSubtotal }}</th>
+                        <th>{{ prodTaxtotal }}</th>
+                        <th>{{ prodFinaltotal }}</th>
+                    </tr>
+                    <tr>
+                        <th colspan="7">Round Off (-/+)</th>
+                        <th>{{roundOff}}</th>
+                    </tr>
+                    <tr>
+                        <th colspan="7">Grand Total</th>
+                        <th>{{grandTotal}}</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button *ngIf="!matData.update" mat-raised-button color="primary" (click)="addInvoice()"
+        [disabled]="!addInvoiceForm.valid">Submit</button>
+    <button *ngIf="matData.update" mat-raised-button color="primary" (click)="updateInvoice()" [disabled]="!addInvoiceForm.valid">Submit</button>
+    <button mat-raised-button color="warn" mat-dialog-close>Cancel</button>
+</mat-dialog-actions>
